@@ -1,0 +1,120 @@
+.qtip-wiki{
+	max-width: 685px;
+}
+
+.qtip-wiki p{
+	margin: 0 0 6px;
+}
+
+.qtip-wiki h1{
+	font-size: 20px;
+	line-height: 1.1;
+	margin: 0 0 5px;
+}
+
+.qtip-wiki img{
+	float: left;
+	margin: 10px 10px 10px 0;
+}
+
+.qtip-wiki .info{
+	overflow: hidden;
+}
+
+.qtip-wiki p.note{
+	font-weight: 700;
+}	
+.txt-article {/*untuk qtip tribun*/
+	margin: 0px ! important;
+}
+.border-merah {
+	border: 1px solid red ! important;
+}
+.hidden-news {
+	display: none;
+}
+#id-ket-tribun-notif {
+	border:1px solid #e1e8ed;
+	background: #f5f8fa;color: tomato;
+	font-weight: bold;
+	text-align: center;
+	padding:10px;
+	margin-bottom:10px;
+	cursor:pointer;
+}
+
+#id-ket-tribun-notif:hover {
+	background: skyblue;
+}
+
+.news {
+	border:1px solid #e1e8ed;
+	margin-bottom: 10px;
+	padding: 10px;	
+}
+
+.news:hover {
+	background: mintcream;
+	border: 1px solid skyblue ! important;
+}
+
+.btn-tweet {
+	cursor: pointer;
+	padding: 8px;
+	width: 60px;
+	border: 1px solid skyblue;
+	border-radius: 8px;
+	color: white;
+	font-weight: bold;
+	background: skyblue;
+}
+
+.btn-tweet:hover {
+	color: skyblue;
+	background: white;
+	border: 1px solid skyblue ! important;
+}
+
+.btn-read {
+	cursor: pointer;
+	padding: 8px;
+	width: 60px;
+	border: 1px solid tomato;
+	border-radius: 8px;
+	color: white;
+	font-weight: bold;
+	background: tomato;
+}
+
+.btn-read:hover {
+	color: tomato;
+	background: white;
+	border: 1px solid tomato ! important;
+}
+
+.tweeted {
+	cursor: pointer;
+	padding: 8px;
+	width: 60px;
+	border: 1px solid slategrey;
+	border-radius: 8px;
+	color: white;
+	font-weight: bold;
+	background: slategrey;
+}
+
+.btn-scaper {
+	cursor: pointer;
+	padding: 5px;
+	/* width: 60px; */
+	border: 1px solid indianred;
+	border-radius: 0px;
+	color: white;
+	font-weight: bold;
+	background: indianred;
+}
+
+.btn-scaper:hover {
+	color: indianred;
+	background: white;
+}

@@ -1,0 +1,2 @@
+* * * * * /usr/bin/curl -o temp.txt http://projecto.com/tweepi/sekrip/code/cron/tweet.php
+* * * * * /usr/bin/curl -o temp2.txt http://google.com/
