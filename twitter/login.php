@@ -1,5 +1,9 @@
 <?php
 session_start();
+require_once "../config.php";
+if (empty($_GET['nav'])) {
+    $_GET['nav'] = 'via_twitter';
+}
 function token_request($callback_url) //step 1 == request generated token
 {
 	require_once('oauth_twitter/oauth_lib.php');
@@ -53,10 +57,15 @@ function token_verify($oauth = array())	//step 2 == check requested token from s
 	return $dt;
 }
 
+if ($_GET['nav'] == 'logout') {
+    session_destroy();
+    header("location: ".BASE_URL."index.php");
+    exit;
+}
+
 if ($_GET['nav'] == 'via_twitter') {	//step 1
-	$callback_url = 'http://abdiid.com/scrape/ganon/twitter/login.php?nav=verifikasi';
+	$callback_url = BASE_URL . 'twitter/login.php?nav=verifikasi';
 	$oauth = token_request($callback_url);
-	//echo "<pre>".print_r( $oauth,1 )."</pre>";
 	if ($oauth['status'] == '200 OK') {
 		$oauth_token = $oauth['oauth_token'];
 		$_SESSION['oauth_token'] = $oauth_token;
@@ -73,8 +82,6 @@ if ($_GET['nav'] == 'via_twitter') {	//step 1
 }
 else if ($_GET['nav'] == 'verifikasi' && isset($_GET['oauth_token']) && isset($_GET['oauth_verifier'])) {	//step 2
 	if ($_GET['oauth_token'] == $_SESSION['oauth_token']) {
-		//echo "<pre>".print_r($_SESSION,1)."</pre>";
-		//echo "<pre>".print_r($_GET,1)."</pre>";exit;
 		$_SESSION['oauth_verifier'] = $_GET['oauth_verifier'];
 
 		$dt_oauth = array(
@@ -94,11 +101,14 @@ else if ($_GET['nav'] == 'verifikasi' && isset($_GET['oauth_token']) && isset($_
 			$_SESSION['oauth_token'] = $oauth_token;
 			$_SESSION['user_id'] = $user_id;	//twitter_id
 			$_SESSION['screen_name'] = $screen_name;
-			header('location:http://abdiid.com/scrape/ganon/index.php');
+            $_SESSION['logged'] = true;
+			header('location: '.BASE_URL.'index.php');
 			exit;
 		} else {	// respon from twitter not 200 ok
 			die('error status not 200');
 		}
 	} else die(json_encode(array('error . Access denied')));
-} else redirect(c_link('login/login').'?z='. ue('nav=gagal').'&y=empty');	// end step 2
+} else {
+    header("location: ".BASE_URL."index.php");
+}
 

@@ -1,15 +1,13 @@
 <?php
 session_start();
+require_once "config.php";
 require_once('lib/ganon.php');
-define('TITLE', 'Jogja News');
-if (isset($_GET['logout'])) {
-	session_destroy();
-}
-if (isset($_SESSION['user_id'])) {
-	if ($_SESSION['user_id'] != '1889885564') {
-		die('Akses ditolak');
-	}
-}
+
+// if (isset($_SESSION['user_id'])) {
+// 	if ($_SESSION['user_id'] != '1889885564') {
+// 		die('Akses ditolak');
+// 	}
+// }
 
 function update_file_tweeted () {
 	//$file_tweeted = 'data/tweeted.txt';
@@ -44,12 +42,24 @@ if (isset($_GET['test'])) {
 	die();
 }
 
-if (! isset($_SESSION['user_id'])) {
-	$_SESSION['user_id'] = '1889885564';
-	$_SESSION['screen_name'] = 'jogjaBox';
-	$_SESSION['oauth_token_secret'] = 'tvdksk2moWlrN7LPEIftzCk3Mki7BCssDEJwxqjcKPcVF';
-	$_SESSION['oauth_token'] = '1889885564-v53R10a9ZaPDTRE250ZmAELksai2TMiWMQHihPH';
-	$_SESSION['oauth_verifier'] = 'HNIHEhcTWeDSgB3Cy6udN0X1rudXUm8nVqaXXric';
+if (empty($_SESSION['logged'])) {
+    $loginUrl = BASE_URL . "twitter/login.php";
+    $res = "
+        <h1>Welcome to Tweetnews</h1>
+        <p>This is an application to read news</p>
+        <p>Please sign in to use this application.</p>
+        <button style='padding: 5px;cursor: pointer;'>
+            <a href='".$loginUrl."'>
+                <img src='https://g.twimg.com/dev/sites/default/files/images_documentation/sign-in-with-twitter-link.png' alt='Sign in with Twitter'>
+            </a>
+        </button>
+        ";
+    die($res);
+	// $_SESSION['user_id'] = '1889885564';
+	// $_SESSION['screen_name'] = 'jogjaBox';
+	// $_SESSION['oauth_token_secret'] = 'tvdksk2moWlrN7LPEIftzCk3Mki7BCssDEJwxqjcKPcVF';
+	// $_SESSION['oauth_token'] = '1889885564-v53R10a9ZaPDTRE250ZmAELksai2TMiWMQHihPH';
+	// $_SESSION['oauth_verifier'] = 'HNIHEhcTWeDSgB3Cy6udN0X1rudXUm8nVqaXXric';
 }
 
 $res = "
@@ -72,7 +82,7 @@ $res = "
 		if (! isset($_SESSION['user_id'])) {
 			$res .=	"<a style='text-decoration: initial;' href='twitter/login.php?nav=via_twitter'>Sign in</a>";
 		} else {
-			$res .=	"Logged as <a style='text-decoration: initial;' href='javascript:;'>@$_SESSION[screen_name]</a> | <a style='text-decoration: initial;' href='twitter/login.php?nav=via_twitter&force_login=1'>Change</a> | <a style='text-decoration: initial;' href='?logout=1'>Logout</a>";
+			$res .=	"Logged as <a style='text-decoration: initial;' href='javascript:;'>@$_SESSION[screen_name]</a> | <a style='text-decoration: initial;' href='twitter/login.php?nav=via_twitter&force_login=1'>Change</a> | <a style='text-decoration: initial;' href='".BASE_URL."twitter/login.php?nav=logout'>Logout</a>";
 		}
 	$res .= "
 	</div>
@@ -143,8 +153,6 @@ $res = "
 	<div style='' id='kr'></div>
 	";
 if (empty($_GET)) {
-	die($res);
-} else if (isset($_GET['logout'])) {
 	die($res);
 } else if (isset($_GET['read'])) {
 	$url = $_GET['url'];
