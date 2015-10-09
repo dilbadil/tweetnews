@@ -1,8 +1,8 @@
 <?php
-echo "hello boss";exit;
 session_start();
 require_once "config.php";
 require_once('lib/ganon.php');
+echo "hello boss";exit;
 
 // if (isset($_SESSION['user_id'])) {
 // 	if ($_SESSION['user_id'] != '1889885564') {
