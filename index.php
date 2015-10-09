@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once "config.php";
-echo "hello boss";exit;
 require_once('lib/ganon.php');
 
 // if (isset($_SESSION['user_id'])) {
